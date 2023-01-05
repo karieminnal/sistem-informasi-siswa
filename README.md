@@ -1,6 +1,10 @@
 "# sistem-informasi-siswa" 
 
-How to run:
+# Before build:
+
+Scripts\activate\venv
+
+# How to run:
 
 SET FLASK_APP = main.py
 
