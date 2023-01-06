@@ -2,10 +2,8 @@
 
 # Move to virtual environment: 
 
-Scripts\activate\venv
+venv\Scripts activate
 
 # How to run:
-
-SET FLASK_APP = main.py
 
 flask run
