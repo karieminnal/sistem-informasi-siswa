@@ -1,6 +1,6 @@
 "# sistem-informasi-siswa" 
 
-# Before build:
+# Move to virtual environment: 
 
 Scripts\activate\venv
 
