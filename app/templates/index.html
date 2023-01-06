@@ -3,6 +3,32 @@
         <title>{{ title }} - Sistem Informasi Siswa</title>
     </head>
     <body>
-        <h1>Hello, {{ user.username }}!</h1>
+        <table>
+            <tr>
+                <th>nisn</th>
+                <th>niss</th>
+                <th>nama</th>
+                <th>tanggal lahir</th>
+                <th>tempat lahir</th>
+                <th>alamat</th>
+                <th>jenis kelamin</th>
+                <th>nama orang tua</th>
+                <th>asal sekolah</th>
+                <th>tahun ijazah</th>
+            </tr>
+            {% for row in students %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.5}}</td>
+                <td>{{row.6}}</td>
+                <td>{{row.7}}</td>
+                <td>{{row.8}}</td>
+                <td>{{row.9}}</td>
+            </tr>
+        </table>
     </body>
 </html>
