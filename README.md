@@ -2,7 +2,7 @@
 
 # Move to virtual environment: 
 
-venv\Scripts activate
+venv\Scripts\activate
 
 # How to run:
 
