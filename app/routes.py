@@ -61,13 +61,9 @@ def update():
         conn.commit()
         return redirect(url_for('index'))
 
-# cur.execute("UPDATE users SET name=%s WHERE id=%s", (new_name, id))
-# conn.commit()
-
-
-# Delete
-# @app.route('/delete/<string:id_data>', methods = ['GET'])
-# def delete():
-#     flash("Record has been deleted successfully")
-#     cur.execute("DELETE FROM tabel_siswa WHERE id=%s", (id_data,))
-#     conn.commit()
+@app.route('/delete/<nisn>', methods = ['GET'])
+def delete(nisn):
+    flash("Record Has Been Deleted Successfully")
+    cur.execute("DELETE FROM tabel_siswa WHERE nisn=%s", (nisn,))
+    conn.commit()
+    return redirect(url_for('index'))
