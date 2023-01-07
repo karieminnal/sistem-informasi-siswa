@@ -37,12 +37,37 @@ def insert():
 
         return redirect(url_for('index'))
 
-
-
 # Update
+@app.route('/update', methods=['POST','GET'])
+def update():
+    if request.method == 'POST':
+        flash("Data Inserted Sucessfully")
+        nisn = request.form['nisn']
+        niss = request.form['niss']
+        nama = request.form['nama']
+        tanggal_lahir = request.form['tanggal_lahir']
+        tempat_lahir = request.form['tempat_lahir']
+        alamat = request.form['alamat']
+        jenis_kelamin = request.form['jenis_kelamin']
+        nama_orangtua = request.form['nama_orangtua']
+        asal_sekolah = request.form['asal_sekolah']
+        tahun_ijazah = request.form['tahun_ijazah']
+        cur.execute("""UPDATE tabel_siswa SET niss=%s,
+                    nama=%s, tanggal_lahir=%s, tempat_lahir==%s, alamat=%s,
+                    jenis_kelamin=%s, nama_orangtua=%s, asal_sekolah=%s, tahun_ijazah=%s WHERE nisn=%s"""
+                    (niss,nama,tanggal_lahir,tempat_lahir,alamat,jenis_kelamin,
+                    nama_orangtua,asal_sekolah,tahun_ijazah, nisn))
+        flash("Data Updated Successfully")
+        conn.commit()
+        return redirect(url_for('index'))
+
 # cur.execute("UPDATE users SET name=%s WHERE id=%s", (new_name, id))
 # conn.commit()
 
+
 # Delete
-# cur.execute("DELETE FROM users WHERE id=%s", (id,))
-# conn.commit()
+# @app.route('/delete/<string:id_data>', methods = ['GET'])
+# def delete():
+#     flash("Record has been deleted successfully")
+#     cur.execute("DELETE FROM tabel_siswa WHERE id=%s", (id_data,))
+#     conn.commit()
