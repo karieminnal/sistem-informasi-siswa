@@ -10,7 +10,7 @@ cur = conn.cursor()
 @app.route('/')
 def index():
     # koneksi database
-    cur.execute("SELECT * FROM tabel_siswa")
+    cur.execute("SELECT * FROM data_siswa")
     data = cur.fetchall()
     # cur.close()
     # conn.close()
@@ -32,16 +32,24 @@ def insert():
         nama_orangtua = request.form['nama_orangtua']
         asal_sekolah = request.form['asal_sekolah']
         tahun_ijazah = request.form['tahun_ijazah']
-        cur.execute("INSERT INTO tabel_siswa (nisn, niss, nama, tanggal_lahir, tempat_lahir, alamat, jenis_kelamin, nama_orangtua, asal_sekolah, tahun_ijazah) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (nisn, niss, nama, tanggal_lahir, tempat_lahir, alamat, jenis_kelamin, nama_orangtua, asal_sekolah, tahun_ijazah))
+        cur.execute("INSERT INTO data_siswa (nisn, niss, nama, tanggal_lahir, tempat_lahir, alamat, jenis_kelamin, nama_orangtua, asal_sekolah, tahun_ijazah) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (nisn, niss, nama, tanggal_lahir, tempat_lahir, alamat, jenis_kelamin, nama_orangtua, asal_sekolah, tahun_ijazah))
         conn.commit()
 
         return redirect(url_for('index'))
+
+#Delete
+@app.route('/delete/<string:id_data>', methods = ['GET'])
+def delete(id_data):
+    flash("Record Has Been Deleted Successfully")
+    cur.execute("DELETE FROM data_siswa WHERE id=%s", (id_data,))
+    conn.commit()
+    return redirect(url_for('index'))
 
 # Update
 @app.route('/update', methods=['POST','GET'])
 def update():
     if request.method == 'POST':
-        flash("Data Inserted Sucessfully")
+        id_data = request.form['id']
         nisn = request.form['nisn']
         niss = request.form['niss']
         nama = request.form['nama']
@@ -52,18 +60,13 @@ def update():
         nama_orangtua = request.form['nama_orangtua']
         asal_sekolah = request.form['asal_sekolah']
         tahun_ijazah = request.form['tahun_ijazah']
-        cur.execute("""UPDATE tabel_siswa SET niss=%s,
-                    nama=%s, tanggal_lahir=%s, tempat_lahir==%s, alamat=%s,
-                    jenis_kelamin=%s, nama_orangtua=%s, asal_sekolah=%s, tahun_ijazah=%s WHERE nisn=%s"""
-                    (niss,nama,tanggal_lahir,tempat_lahir,alamat,jenis_kelamin,
-                    nama_orangtua,asal_sekolah,tahun_ijazah, nisn))
+        cur.execute("""UPDATE data_siswa 
+                    SET nisn=%s, niss=%s, nama=%s, tanggal_lahir=%s, tempat_lahir=%s, alamat=%s,
+                    jenis_kelamin=%s, nama_orangtua=%s, asal_sekolah=%s, tahun_ijazah=%s 
+                    WHERE id=%s
+                    """, (nisn,niss,nama,tanggal_lahir,tempat_lahir,alamat,jenis_kelamin,
+                    nama_orangtua,asal_sekolah,tahun_ijazah, id_data))
         flash("Data Updated Successfully")
         conn.commit()
         return redirect(url_for('index'))
 
-@app.route('/delete/<nisn>', methods = ['GET'])
-def delete(nisn):
-    flash("Record Has Been Deleted Successfully")
-    cur.execute("DELETE FROM tabel_siswa WHERE nisn=%s", (nisn,))
-    conn.commit()
-    return redirect(url_for('index'))
