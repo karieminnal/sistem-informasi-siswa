@@ -3,6 +3,58 @@
         <title>{{ title }} - Sistem Informasi Siswa</title>
     </head>
     <body>
+        <form action="{{url_for('insert')}}" method="POST">
+            <div class="form-group">
+                <label>NISN:</label>
+                <input type="text" class="form-control" name="nisn" required="1">
+            </div>
+            <div class="form-group">
+                <label>NISS:</label>
+                <input type="text" class="form-control" name="niss" required="1">
+            </div>
+            <div class="form-group">
+                <label>Nama:</label>
+                <input type="text" class="form-control" name="nama" required="1">
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir:</label>
+                <input type="date" class="form-control" name="tanggal_lahir" required="1">
+            </div>
+            <div class="form-group">
+                <label>Tempat Lahir:</label>
+                <input type="text" class="form-control" name="tempat_lahir" required="1">
+            </div>
+            <div class="form-group">
+                <label>Alamat:</label>
+                <input type="text" class="form-control" name="alamat" required="1">
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin:</label>
+                <input type="radio" class="form-control" name="jenis_kelamin" value="P" required="1">
+                <label for="P">P</label>
+                <input type="radio" class="form-control" name="jenis_kelamin" value="L" required="1">
+                <label for="L">L</label>
+            </div>
+            <div class="form-group">
+                <label>Nama Orang Tua:</label>
+                <input type="text" class="form-control" name="nama_orangtua" required="1">
+            </div>
+            <div class="form-group">
+                <label>Asal Sekolah:</label>
+                <input type="text" class="form-control" name="asal_sekolah" required="1">
+            </div>
+            <div class="form-group">
+                <label>Tahun Ijazah:</label>
+                <select name="tahun_ijazah" id="tahun_ijazah">
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Insert Data</button>
+        </form>
         <table>
             <tr>
                 <th>nisn</th>
@@ -29,6 +81,7 @@
                 <td>{{row.8}}</td>
                 <td>{{row.9}}</td>
             </tr>
+            {%endfor%}
         </table>
     </body>
 </html>
