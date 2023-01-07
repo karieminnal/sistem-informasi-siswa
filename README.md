@@ -6,4 +6,4 @@ venv\Scripts\activate
 
 # How to run:
 
-flask run
+python main.py
