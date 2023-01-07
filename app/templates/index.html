@@ -78,7 +78,6 @@
         <title>{{ title }} - Sistem Informasi Siswa</title>
     </head>
     <body>
-        <!-- Form Input Data Siswa -->
         <div>
         <form action="{{url_for('insert')}}" method="POST">
             <div>
@@ -133,9 +132,6 @@
             <button class="btn btn-primary" type="submit">Insert Data</button>
         </form>
         </div>
-        <!-- Form Input Data Siswa -->
-
-        <!-- Tabel Data Siswa -->
         <div>
         <table class="table table-striped">
             <tr>
@@ -149,7 +145,6 @@
                 <th>nama orang tua</th>
                 <th>asal sekolah</th>
                 <th>tahun ijazah</th>
-                <th>action</th>
             </tr>
             {% for row in students %}
             <tr>
@@ -164,89 +159,83 @@
                 <td>{{row.9}}</td>
                 <td>{{row.10}}</td>
                 <td>
-                <button href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</button>
-                <button type="button" id="myBtn2" class="btn btn-warning btn-xs" data-target="#modaledit{{row.0}}"">Edit</button>
+                <button id="myBtn2" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</button>
+                <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
                 </td>
             </tr>
         </table>
-            <!-- Modal for update Tabel Siswa -->
-            <div>
-                <!-- The Modal -->
-                <div id="modaledit">
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <!-- <span class="close">&times;</span> -->
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Update Data Siswa</h4>
+                    <!-- The Modal -->
+                    <div id="modaledit">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <!-- <span class="close">&times;</span> -->
+                            <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
+                            <h4 class="modal-title">Update Data Siswa</h4>
+                            </div>
+        
+                            <div class="modal-body">
+                            <form action="{{url_for('update')}}" method="post">
+                                <div class="form-group">
+                                    <label>NISN:</label>
+                                    <input type="hidden"  name="id" value="{{row.0}}">
+                                    <input type="text" class="form-control" name="nisn" value="{{row.1}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>NISS:</label>
+                                    <input type="text" class="form-control" name="niss" value="{{row.2}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama:</label>
+                                    <input type="text" class="form-control" name="nama" value="{{row.3}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Lahir:</label>
+                                    <input type="Date" class="form-control" name="tanggal_lahir" value="{{row.4}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tempat Lahir:</label>
+                                    <input type="text" class="form-control" name="tempat_lahir" value="{{row.5}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat:</label>
+                                    <input type="text" class="form-control" name="alamat" value="{{row.6}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Jenis Kelamin:</label>
+                                    <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
+                                    <label>P</label>
+                                    <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
+                                    <label>L</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Orang Tua:</label>
+                                    <input type="text" class="form-control" name="nama_orangtua" value="{{row.8}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Asal Sekolah:</label>
+                                    <input type="text" class="form-control" name="asal_sekolah" value="{{row.9}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tahun Ijazah:</label>
+                                    <select name="tahun_ijazah" value="{{row.10}}">
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="modal-body">
-                    <form action="{{url_for('update')}}" method="post">
-                        <div class="form-group">
-                            <label>NISN:</label>
-                            <input type="hidden"  name="id" value="{{row.0}}">
-                            <input type="text" class="form-control" name="nisn" value="{{row.1}}">
-                        </div>
-                        <div class="form-group">
-                            <label>NISS:</label>
-                            <input type="text" class="form-control" name="niss" value="{{row.2}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Nama:</label>
-                            <input type="text" class="form-control" name="nama" value="{{row.3}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Tanggal Lahir:</label>
-                            <input type="Date" class="form-control" name="tanggal_lahir" value="{{row.4}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Tempat Lahir:</label>
-                            <input type="text" class="form-control" name="tempat_lahir" value="{{row.5}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat:</label>
-                            <input type="text" class="form-control" name="alamat" value="{{row.6}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Jenis Kelamin:</label>
-                            <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
-                            <label>P</label>
-                            <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
-                            <label>L</label>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Orang Tua:</label>
-                            <input type="text" class="form-control" name="nama_orangtua" value="{{row.8}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Asal Sekolah:</label>
-                            <input type="text" class="form-control" name="asal_sekolah" value="{{row.9}}">
-                        </div>
-                        <div class="form-group">
-                            <label>Tahun Ijazah:</label>
-                            <select name="tahun_ijazah" value="{{row.10}}">
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <!-- Modal for update Tabel Siswa -->
-            {%endfor%}
+                    {%endfor%}
         </div>
-        <!-- Tabel Data Siswa -->
-
         <script>
             // Get the modal
             var modal = document.getElementById("modaledit");
@@ -279,6 +268,5 @@
                 modal.style.display = 'none';
             }
         </script>
-            
     </body>
 </html>

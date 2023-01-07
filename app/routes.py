@@ -37,13 +37,6 @@ def insert():
 
         return redirect(url_for('index'))
 
-#Delete
-@app.route('/delete/<string:id_data>', methods = ['GET'])
-def delete(id_data):
-    flash("Record Has Been Deleted Successfully")
-    cur.execute("DELETE FROM data_siswa WHERE id=%s", (id_data,))
-    conn.commit()
-    return redirect(url_for('index'))
 
 # Update
 @app.route('/update', methods=['POST','GET'])
@@ -69,4 +62,11 @@ def update():
         flash("Data Updated Successfully")
         conn.commit()
         return redirect(url_for('index'))
+
+@app.route('/delete/<id_data>', methods = ['GET'])
+def delete(id_data):
+    flash("Record Has Been Deleted Successfully")
+    cur.execute("DELETE FROM data_siswa WHERE id=%s", (id_data,))
+    conn.commit()
+    return redirect(url_for('index'))
 
