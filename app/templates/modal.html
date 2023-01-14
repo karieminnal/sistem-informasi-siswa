@@ -1,0 +1,274 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {font-family: Arial, Helvetica, sans-serif;}
+            
+            /* The Modal (background) */
+            .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              padding-top: 100px; /* Location of the box */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+            
+            /* Modal Content */
+            .modal-content {
+              position: relative;
+              background-color: #fefefe;
+              margin: auto;
+              padding: 0;
+              border: 1px solid #888;
+              width: 80%;
+              box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+              -webkit-animation-name: animatetop;
+              -webkit-animation-duration: 0.4s;
+              animation-name: animatetop;
+              animation-duration: 0.4s
+            }
+            
+            /* Add Animation */
+            @-webkit-keyframes animatetop {
+              from {top:-300px; opacity:0} 
+              to {top:0; opacity:1}
+            }
+            
+            @keyframes animatetop {
+              from {top:-300px; opacity:0}
+              to {top:0; opacity:1}
+            }
+            
+            /* The Close Button */
+            .close {
+              color: white;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+            
+            .close:hover,
+            .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+            
+            .modal-header {
+              padding: 2px 16px;
+              background-color: #5cb85c;
+              color: white;
+            }
+            
+            .modal-body {padding: 2px 16px;}
+            
+            .modal-footer {
+              padding: 2px 16px;
+              background-color: #5cb85c;
+              color: white;
+            }
+            </style>
+        <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+        <title>{{ title }} - Sistem Informasi Siswa</title>
+    </head>
+    <body>
+        {% include "header.html" %}
+        <div>
+        <form action="{{url_for('insert')}}" method="POST">
+            <div>
+                <label>NISN:</label>
+                <input type="text" class="#" name="nisn" required="1">
+            </div>
+            <div>
+                <label>NISS:</label>
+                <input type="text" class="#" name="niss" required="1">
+            </div>
+            <div>
+                <label>Nama:</label>
+                <input type="text" class="#" name="nama" required="1">
+            </div>
+            <div>
+                <label>Tanggal Lahir:</label>
+                <input type="date" class="#" name="tanggal_lahir" required="1">
+            </div>
+            <div>
+                <label>Tempat Lahir:</label>
+                <input type="text" class="#" name="tempat_lahir" required="1">
+            </div>
+            <div>
+                <label>Alamat:</label>
+                <input type="text" class="#" name="alamat" required="1">
+            </div>
+            <div>
+                <label>Jenis Kelamin:</label>
+                <input type="radio" class="#" name="jenis_kelamin" value="P" required="1">
+                <label for="P">P</label>
+                <input type="radio" class="#" name="jenis_kelamin" value="L" required="1">
+                <label for="L">L</label>
+            </div>
+            <div>
+                <label>Nama Orang Tua:</label>
+                <input type="text" class="#" name="nama_orangtua" required="1">
+            </div>
+            <div>
+                <label>Asal Sekolah:</label>
+                <input type="text" class="#" name="asal_sekolah" required="1">
+            </div>
+            <div>
+                <label>Tahun Ijazah:</label>
+                <select name="tahun_ijazah" id="tahun_ijazah">
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Insert Data</button>
+        </form>
+        </div>
+        <div>
+        <table class="table table-striped">
+            <tr>
+                <th>nisn</th>
+                <th>niss</th>
+                <th>nama</th>
+                <th>tanggal lahir</th>
+                <th>tempat lahir</th>
+                <th>alamat</th>
+                <th>jenis kelamin</th>
+                <th>nama orang tua</th>
+                <th>asal sekolah</th>
+                <th>tahun ijazah</th>
+            </tr>
+            {% for row in students %}
+            <tr>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.5}}</td>
+                <td>{{row.6}}</td>
+                <td>{{row.7}}</td>
+                <td>{{row.8}}</td>
+                <td>{{row.9}}</td>
+                <td>{{row.10}}</td>
+                <td>
+                <button id="myBtn2" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</button>
+                <br>
+                <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+                </td>
+            </tr>
+        </table>
+                    <!-- The Modal -->
+                    <div id="modaledit">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <!-- <span class="close">&times;</span> -->
+                            <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
+                            <h4 class="modal-title">Update Data Siswa</h4>
+                            </div>
+        
+                            <div class="modal-body">
+                            <form action="{{url_for('update')}}" method="post">
+                                <div class="form-group">
+                                    <label>NISN:</label>
+                                    <input type="hidden"  name="id" value="{{row.0}}">
+                                    <input type="text" class="form-control" name="nisn" value="{{row.1}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>NISS:</label>
+                                    <input type="text" class="form-control" name="niss" value="{{row.2}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama:</label>
+                                    <input type="text" class="form-control" name="nama" value="{{row.3}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Lahir:</label>
+                                    <input type="Date" class="form-control" name="tanggal_lahir" value="{{row.4}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tempat Lahir:</label>
+                                    <input type="text" class="form-control" name="tempat_lahir" value="{{row.5}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat:</label>
+                                    <input type="text" class="form-control" name="alamat" value="{{row.6}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Jenis Kelamin:</label>
+                                    <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
+                                    <label>P</label>
+                                    <input type="radio" class="form-control" name="jenis_kelamin" value="{{row.7}}">
+                                    <label>L</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Orang Tua:</label>
+                                    <input type="text" class="form-control" name="nama_orangtua" value="{{row.8}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Asal Sekolah:</label>
+                                    <input type="text" class="form-control" name="asal_sekolah" value="{{row.9}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tahun Ijazah:</label>
+                                    <select name="tahun_ijazah" value="{{row.10}}">
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+        </div>
+        <script>
+            // Get the modal
+            var modal = document.getElementById("modaledit");
+            
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn2");
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+              modal.style.display = "block";
+            }
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+            
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('modaledit');
+                modal.style.display = 'none';
+            }
+        </script>
+    </body>
+</html>

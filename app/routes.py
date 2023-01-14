@@ -6,16 +6,22 @@ from flask import Flask, render_template, request, flash, url_for, redirect
 # konfigurasi database
 conn = psycopg2.connect(host="localhost", database="sistem_informasi_siswa", user="postgres", password="123456")
 cur = conn.cursor()
-# Read
+
 @app.route('/')
 def index():
+
+    return render_template('index.html')
+
+# Read
+@app.route('/data_siswa')
+def data_siswa():
     # koneksi database
     cur.execute("SELECT * FROM data_siswa")
     data = cur.fetchall()
     # cur.close()
     # conn.close()
 
-    return render_template('index.html', students = data)
+    return render_template('data_siswa.html', students = data)
 
 # Create
 @app.route('/insert', methods = ['POST'])

@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Tabel Data Nominatif Siswa SMKN 1 Bendo Magetan</h1>
+        <form class="navbar-form navbar-left">
+            <input class="form-control" type="text" id="searchData" placeholder="Cari Data Siswa">
+        </form>
+        <br>
+        <table class="table table-striped">
+            <tr>
+                <th>Nomor Induk Siswa Nasional</th>
+                <th>Nomor Induk Siswa Sekolah</th>
+                <th>Nama</th>
+                <th>Tanggal Lahir</th>
+                <th>Tempat Lahir</th>
+                <th>Alamat</th>
+                <th>Jenis Kelamin</th>
+                <th>Nama Orang Tua</th>
+                <th>Asal Sekolah</th>
+                <th>Tahun Ijazah</th>
+                <th>Opsi</th>
+            </tr>
+            <tbody id="dataSiswa">
+                {% for row in students %}
+                <tr>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>{{row.5}}</td>
+                    <td>{{row.6}}</td>
+                    <td>{{row.7}}</td>
+                    <td>{{row.8}}</td>
+                    <td>{{row.9}}</td>
+                    <td>{{row.10}}</td>
+                    <td>
+                    <button id="myBtn2" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</button>
+                    <br>
+                    <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+{% endblock%}
