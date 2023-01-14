@@ -1,9 +1,12 @@
-"# sistem-informasi-siswa" 
+# sistem-informasi-siswa
 
-# Move to virtual environment: 
+## Move to virtual environment: 
 
-venv\Scripts\activate
+``` venv\Scripts\activate ```
 
-# How to run:
+## Install Requirements: 
+``` pip install -r requirements.txt```
 
-python main.py
+## How to run:
+
+``` python main.py ```
